@@ -19,7 +19,7 @@ window.onload = async function () {
             token = data.token;
             console.log("Token retrieved");
 
-            await extractPdfText("vendordata_v2.pdf");
+            await extractPdfText("vendor_data_v3.pdf");
             pdfSummary = await generatePdfSummary(pdfcontext);          
             await generateAndDisplaySuggestedPrompts(pdfSummary);
 
