@@ -159,7 +159,7 @@ async function generatePdfSummary(context) {
                 "Authorization": `Bearer ${token}:EDF-Vendors`
             },
             body: JSON.stringify({
-                model: "gemini-2.0-flash-exp",
+                model: "gemini-2.5-pro-exp-03-25",
                 messages: [{
                     role: "user",
                     content: summaryPrompt
