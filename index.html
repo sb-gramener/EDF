@@ -16,12 +16,33 @@
             <header class="sidebar-header">
                 <h1>EDF Vendor Intelligence</h1>
             </header>
-            <button class="new-chat-btn" id="newChatBtn"><i class="bi bi-plus-circle-fill"></i> New Chat</button>
-            <nav class="recent-conversations">
-                <h2>RECENT CONVERSATIONS</h2>
+
+            <!-- Add the new Home/Knowledge Base button -->
+            <button class="my-custom-button active-tab-button" id="home-tab-button">
+                <i class="bi bi-gear"></i> Knowledge Base Set-Up
+            </button>
+            <!-- DataChat Button -->
+            <button class="my-custom-button" id="datachat-tab-button">
+                <i class="bi bi-chat-dots"></i> Talk to Vendor Database
+            </button>
+            <!-- DocTalk Button -->
+            <button class="my-custom-button" id="doctalk-tab-button">
+                <i class="bi bi-chat-square-text"></i> Talk to Vendor Documents
+            </button>
+
+            <!-- Recent Conversations - Initially hidden -->
+            <nav class="recent-conversations" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="margin-top: 1rem;">RECENT CONVERSATIONS</h2>
+                    <button class="new-chat-btn" id="newChatBtn" style="display: flex; align-items: center; position: relative;">
+                        <i class="bi bi-plus-circle-fill" style="margin-right: 0.5rem;"></i>NewChat
+                    </button>
+                </div>
                 <ul id="conversationList">
+                    <!-- Conversation list items will be dynamically added here -->
                 </ul>
             </nav>
+
             <footer class="user-profile">
                 <div class="user-avatar">SU</div>
                 <span>Suresh N.</span>
@@ -29,41 +50,117 @@
             </footer>
         </aside>
 
-        <main class="chat-area">
+        <!-- Home/Knowledge Base Area (Initially Visible) -->
+        <main class="chat-area" id="home" style="display: flex; flex-direction: column;">
             <header class="chat-header">
-                <h2 id="chatHeaderTitle">Intelligence Chat</h2> 
+                <h2>Knowledge Base Set-Up</h2>
+            </header>
+
+            <div class="home-page" style="display: flex; justify-content: space-between; align-items: flex-start; flex-grow: 1;"> 
+
+                <div style="width: 48%; text-align: center; padding-left: 5rem; padding-top: 3rem;">
+                    <p style="font-size: 1.1rem;">Connect to Vendor Database</p>
+                    <div id="file-attachDataChat" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 1.5rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
+                        <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-database"></i></div>
+                        <div style="font-size: 1rem; color: #555;">Click to upload database file</div>
+                        <input type="file" id="fileInputDataChat" style="display: none;" accept=".csv,.sqlite3,.db,.sqlite,.s3db,.sl3" multiple/>
+                    </div>
+                    <p style="color:#5f5f5f; margin-top: 1rem;">Supported Formats: .csv, .sqlite3, .db, .sqlite, .s3db</p>
+                    <!-- Add uploaded database files name display here-->
+                    <div id="dataFileList" style="display: none; margin-top: 0.5rem; color: #333; font-size: 0.8rem; text-align: left; padding: 1rem; border: 1px solid; border-color: #bdbdbd; border-radius: 5px;">
+                        <div style="margin-bottom: 0.5rem;">Database Files:</div>
+                    </div>
+
+                </div>
+
+
+                <div style="width: 48%; text-align: center; padding-right: 5rem;padding-top: 3rem;">
+                    <p style="font-size: 1.1rem;">Upload Vendor Documents</p>
+                    <div id="file-attachDocTalk" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 2rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
+                        <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-file-earmark-text"></i></div>
+                        <div style="font-size: 1rem; color: #555;">Click to upload documents</div>
+                        <input type="file" id="fileInputDocTalk" style="display: none;" accept=".pdf,.doc,.docx,.txt, .xls, .xlsx" multiple/>
+                    </div>
+                    <p style="color:#5f5f5f; margin-top: 1rem;">Supported Formats: .pdf, .doc, .docx, .txt, .xls, .xlsx</p>
+                    <!-- Add uploaded files name display here-->
+                    <div id="docFileList" style="display: none; margin-top: 0.5rem; color: #333; font-size: 0.8rem; text-align: left; padding: 1rem; border: 1px solid; border-color: #bdbdbd; border-radius: 5px;">
+                        <div style="margin-bottom: 0.25rem;">Documents Uploaded:</div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <footer class="input-area">
+                <p class="footer-text">Upload your vendor database and vendor documents</p>
+            </footer>
+        </main>
+
+
+        <!-- DocTalk Chat Area (Initially Hidden) -->
+        <main class="chat-area" id="doctalk"  style="display: none;">
+            <header class="chat-header">
+                <h2 id="chatHeaderTitleDocTalk">Talk to Vendor Documents</h2>
                 <div class="header-icons">
-                    <!-- <span>📊</span> -->
                     <span>📥</span>
                     <span>⋮</span>
                 </div>
             </header>
 
-            <div class="chat-log" id="chatLog">
-                
+            <div class="chat-log" id="chatLogDocTalk">
+                <!-- DocTalk messages go here -->
             </div>
 
-            <div class="suggested-prompts" id="suggestedPrompts">
-                 <!-- <button class="prompt-btn"></button>
-                 <button class="prompt-btn"></button>
-                 <button class="prompt-btn"></button> -->
+            <div class="suggested-prompts" id="suggestedPromptsDocTalk">
+                 <!-- DocTalk suggested prompts go here -->
             </div>
 
             <footer class="input-area">
                 <div class="input-wrapper">
-                    <input type="file" id="fileInput" style="display: none;" accept=".pdf,.doc,.docx,.xls,.xlsx">
-                    <button class="attach-btn" title="Attach" id="file-attach"><i class="bi bi-paperclip"></i></button>
-                    <input type="text" id="userInput" placeholder="Ask a question about your vendor data...">
-                    <button id="sendButton" class="send-btn" title="Send">▶</button>
+                    <input type="text" id="userInputDocTalk" placeholder="Ask a question about your vendor documents...">
+                    <button id="sendButtonDocTalk" class="send-btn" title="Send">▶</button>
                 </div>
-                <p class="footer-text">EDF Intelligence for all your vendor data</p>
+                <p class="footer-text">EDF Intelligence for vendor documents</p>
             </footer>
         </main>
+
+        <!-- DataChat Chat Area (Initially Hidden) -->
+        <main class="chat-area" id="datachat" style="display: none;">
+             <header class="chat-header">
+                <h2 id="chatHeaderTitleDataChat">Talk to Vendor Database</h2>
+                <div class="header-icons">
+                    <span>📊</span>
+                    <span>⋮</span>
+                </div>
+            </header>
+
+            <div class="chat-log" id="chatLogDataChat">
+                <!-- DataChat messages go here -->
+            </div>
+            <div id="tables-container" class="table-responsive"></div>
+            <div id="result" class="table-responsive container mx-auto"></div>
+            <div class="suggested-prompts" id="suggestedPromptsDataChat">
+                 <!-- DataChat suggested prompts go here -->
+            </div>
+
+            <footer class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="userInputDataChat" placeholder="Ask a question about the vendor database...">
+                    <button id="sendButtonDataChat" class="send-btn" title="Send">▶</button>
+                </div>
+                <p class="footer-text">EDF Intelligence for structured vendor data</p>
+            </footer>
+        </main>
+
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+    </script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
