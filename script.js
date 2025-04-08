@@ -280,14 +280,38 @@ fileAttachDocTalk.addEventListener('click', () => {
 });
 
 
+// fileInputDocTalk.addEventListener('change', async (event) => {
+//     const files = event.target.files;
+
+//     if (files.length === 0) return;
+
+//     // Clear the list first
+//     // docFileList.innerHTML = '';
+
+//     for (let i = 0; i < files.length; i++) {
+//         const file = files[i];
+//         const fileType = file.name.split('.').pop().toLowerCase();
+
+//         const listItem = document.createElement('div');
+//         listItem.textContent = `• ${file.name}`;
+//         docFileList.appendChild(listItem);
+
+//         await extractTextFromFile(fileType, file, file.name, 'doctalk');
+//     }
+
+//     await generateAndDisplaySuggestedPromptsDocTalk(pdfSummary);
+//     docFileList.style.display = "block";
+//     fileInputDocTalk.value = '';
+// });
 fileInputDocTalk.addEventListener('change', async (event) => {
     const files = event.target.files;
-
     if (files.length === 0) return;
 
-    // Clear the list first
-    // docFileList.innerHTML = '';
+    // Show the file list container and "Processing..." message
+    docFileList.style.display = "block";
+    document.getElementById('processing-div-doctalk').style.display = "block";
 
+    
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const fileType = file.name.split('.').pop().toLowerCase();
@@ -300,9 +324,11 @@ fileInputDocTalk.addEventListener('change', async (event) => {
     }
 
     await generateAndDisplaySuggestedPromptsDocTalk(pdfSummary);
-    docFileList.style.display = "block";
+
+    document.getElementById('processing-div-doctalk').style.display = "none";
     fileInputDocTalk.value = '';
 });
+
 
 
 fileAttachDataChat.addEventListener('click', () => {
@@ -311,22 +337,43 @@ fileAttachDataChat.addEventListener('click', () => {
 
 
 
+// fileInputDataChat.addEventListener('change', async (e) => {
+//     const files = e.target.files;
+
+//     // Clear the list first
+//     // dataFileList.innerHTML = '';
+
+//     const uploadPromises = Array.from(files).map((file) => {
+//         const listItem = document.createElement('div');
+//         listItem.textContent = `• ${file.name}`;
+//         dataFileList.appendChild(listItem);
+//         return DB.upload(file);
+//     });
+
+//     await Promise.all(uploadPromises);
+//     dataFileList.style.display="block";
+// });
+
 fileInputDataChat.addEventListener('change', async (e) => {
     const files = e.target.files;
+    if (files.length === 0) return;
 
-    // Clear the list first
-    // dataFileList.innerHTML = '';
+    // Show the file list container and "Processing..." message
+    dataFileList.style.display = "block";
+    document.getElementById('processing-div-datachat').style.display = "block";
 
     const uploadPromises = Array.from(files).map((file) => {
         const listItem = document.createElement('div');
         listItem.textContent = `• ${file.name}`;
         dataFileList.appendChild(listItem);
-        return DB.upload(file);
+        return DB.upload(file); // Your custom upload logic
     });
 
     await Promise.all(uploadPromises);
-    dataFileList.style.display="block";
+
+    document.getElementById('processing-div-datachat').style.display = "none";
 });
+
 
 
 async function extractTextFromFile(fileType, fileData, fileName, targetContext) {
