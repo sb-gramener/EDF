@@ -26,14 +26,14 @@ window.onload = async function () {
             token = data.token;
             console.log("Token retrieved");
 
-            // await extractPdfText("vendor_data_v3.pdf"); 
+            // await extractPdfText("Supplier_data_v3.pdf"); 
             // pdfSummary = await generatePdfSummary(pdfcontext); 
             // await generateAndDisplaySuggestedPromptsDocTalk(pdfSummary); 
 
         } else {
             token = null;
             console.warn("Token not found in response");
-            //  generateAndDisplaySuggestedPromptsDocTalk("Default summary: Information about various EDF vendors and their services.");
+            //  generateAndDisplaySuggestedPromptsDocTalk("Default summary: Information about various EDF Supplier and their services.");
         }
     } catch (error) {
         token = null;
@@ -185,7 +185,7 @@ const DB = { // Keep DB object globally accessible
         stmt.finalize();
         const schema = DB.schema();
         // console.log(schema);
-        generateAndDisplaySuggestedPromptsDataChat("Also Ensure till you don't know the exact row values don't assume anything specific. For Eg:- If a column country is there, then in suggested prompts don't give any country name until it's in the context.",schema);
+        generateAndDisplaySuggestedPromptsDataChat("Suggest diverse and useful questions that a user can answer from this dataset using SQLite",schema);
     },
 };
 
@@ -477,17 +477,17 @@ async function extractTextFromExcel(fileData) {
 async function generatePdfSummary(context) {
     if (!token) {
         console.warn("Token is not available. Returning default summary.");
-        return "Default summary: Information about various EDF vendors and their services.";
+        return "Default summary: Information about various EDF Supplier and their services.";
     }
     
-    const summaryPrompt = `Summarize the following text about EDF vendors in approximately 150 words. Focus on the key topics and entities mentioned. Do not include any introductory or concluding remarks.\n\nContext:\n${context}`;
+    const summaryPrompt = `Summarize the following text about EDF Supplier in approximately 150 words. Focus on the key topics and entities mentioned. Do not include any introductory or concluding remarks.\n\nContext:\n${context}`;
 
     try {
         const response = await fetch("https://llmfoundry.straive.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}:EDF-Vendors` 
+                "Authorization": `Bearer ${token}:EDF-Supplier` 
             },
             body: JSON.stringify({
                 model: "gpt-4o-mini",
@@ -558,13 +558,13 @@ async function generateAndDisplaySuggestedPromptsDataChat(context,schema=[]) {
 
 async function getSuggestedPrompts(context, type = 'doctalk',schema=[]) {
      const defaultPromptsDocTalk = [
-        "List out all vendors manufacturing valves",
-        "Give all details about vendors in city Mumbai",
-        "Vendors who provides Radiation Shielding"
+        "List out all Supplier manufacturing valves",
+        "Give all details about Supplier in city Mumbai",
+        "Supplier who provides Radiation Shielding"
     ];
      const defaultPromptsDataChat = [
-        "How many vendors are in the database?",
-        "Show vendors located in 'Paris'.",
+        "How many Supplier are in the database?",
+        "Show Supplier located in 'Paris'.",
         "What product categories exist?"
     ];
 
@@ -575,19 +575,19 @@ async function getSuggestedPrompts(context, type = 'doctalk',schema=[]) {
 
     let promptGenerationPrompt;
     if (type === 'datachat') {
-        promptGenerationPrompt = `Given the following summary or description of a vendor database: "${context}" with the schema "${JSON.stringify(schema)}", generate three distinct and useful question prompts a user might ask about the structured data. Prompts should be specific, actionable, less than 80 characters, and suitable for querying a database (e.g., filtering, counting, listing categories). Do not include numbering or bullet points, just the three prompts on new lines.`;
+        promptGenerationPrompt = `Given the following summary or description of a Supplier database: "${context}" with the schema "${JSON.stringify(schema)}", generate three distinct and useful question prompts a user might ask about the structured data. Prompts should be actionable, less than 80 characters, and suitable for querying a database based on general column names. Do not include numbering or bullet points, just the three prompts on new lines.`;
     } else { 
-        promptGenerationPrompt = `Given the following summary about EDF vendors from documents: "${context}", generate three distinct and useful question prompts that a user might ask. The prompts should be specific and actionable, encouraging the user to explore the document content. Do not include any introductory or concluding remarks, just the three prompts, each on a new line. Do not include any numbering or bullet points. Don't write any mathematical prompt and should be something that can be answered appropriately from context. The prompts should be less than 80 characters each.`;
+        promptGenerationPrompt = `Given the following summary about EDF Supplier from documents: "${context}", generate three distinct and useful question prompts that a user might ask. The prompts should be specific and actionable, encouraging the user to explore the document content. Do not include any introductory or concluding remarks, just the three prompts, each on a new line. Do not include any numbering or bullet points. Don't write any mathematical prompt and should be something that can be answered appropriately from context. The prompts should be less than 80 characters each.`;
     }
 
 
     try {
-        
+        // console.log(promptGenerationPrompt);
         const response = await fetch("https://llmfoundry.straive.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}:EDF-Vendors` 
+                "Authorization": `Bearer ${token}:EDF-Supplier` 
             },
             body: JSON.stringify({
                 model: "gpt-4o-mini",
@@ -661,7 +661,7 @@ function startNewChatDocTalk() {
         id: newChatId,
         title: "DocTalk Session", // Default title
         messages: [
-            { role: "assistant", content: "Hello! How can I assist you with vendor documents today?" }
+            { role: "assistant", content: "Hello! How can I assist you with Supplier documents today?" }
         ]
     };
     chatSessionsDocTalk.push(newChat);
@@ -709,7 +709,7 @@ async function handleSendMessageDocTalk() {
     // *** Crucial: Use pdfcontext for DocTalk ***
     const systemMessage = {
         role: "system",
-        content: `You are a helpful assistant specializing in EDF vendor intelligence based *only* on provided documents. Base your answers *strictly* on the following context extracted from vendor documents:\n\n---\n${pdfcontext}\n---\n\nIf the information is not in the context, clearly state that the information is not available in the provided documents. Do not invent information. If responding in a table is appropriate, format your response as a markdown table.`
+        content: `You are a helpful assistant specializing in EDF Supplier intelligence based *only* on provided documents. Base your answers *strictly* on the following context extracted from Supplier documents:\n\n---\n${pdfcontext}\n---\n\nIf the information is not in the context, clearly state that the information is not available in the provided documents. Do not invent information. If responding in a table is appropriate, format your response as a markdown table.`
     };
 
     const messagesForApi = [systemMessage, ...activeChat.messages.map(({ role, content }) => ({ role, content }))];
@@ -743,7 +743,7 @@ function startNewChatDataChat() {
         id: newChatId,
         title: "DataChat Session", // Default title
         messages: [
-            { role: "assistant", content: "Hello! How can I help you query the vendor database today?" }
+            { role: "assistant", content: "Hello! How can I help you query the Supplier database today?" }
         ]
     };
     chatSessionsDataChat.push(newChat);
@@ -823,70 +823,70 @@ Replace generic filter values (e.g. "a location", "specific region", etc.) by qu
 Always use [Table].[Column].
 
 
-Additional Information for columns if vendor Data is there(Else Ignore This Additional Information Below):
+Additional Information for columns if Supplier Data is there(Else Ignore This Additional Information Below):
 -Use the following column definitions(These are details what each field involves) to write SQL queries:
 
-    Company ID: Unique ID of vendor in EDF database.
+    Company ID: Unique ID of Supplier in EDF database.
 
-    Company name: Registered name of the vendor company.
+    Company name: Registered name of the Supplier company.
 
-    Country: Country of vendor's main headquarters location.
+    Country: Country of Supplier's main headquarters location.
 
-    State: State/province of vendor's headquarters location.
+    State: State/province of Supplier's headquarters location.
 
-    Street: Street address of vendor's headquarters.
+    Street: Street address of Supplier's headquarters.
 
-    Pin code: Postal code of vendor's headquarters address.
+    Pin code: Postal code of Supplier's headquarters address.
 
-    City: City where the vendor is headquartered.
+    City: City where the Supplier is headquartered.
 
-    Factory: Physical location of vendor's manufacturing facility.
+    Factory: Physical location of Supplier's manufacturing facility.
 
-    Website: Vendor’s official website URL.
+    Website: Supplier’s official website URL.
 
     Company Size: General size classification of the company.
 
-    No. of employees: Total number of vendor’s employees.
+    No. of employees: Total number of Supplier’s employees.
 
     Company Turnover (M€): Annual revenue in million Euros.
 
-    Contact Name: Name of EDF’s point of contact at vendor.
+    Contact Name: Name of EDF’s point of contact at Supplier.
 
-    Contact Title: Job title of contact at the vendor.
+    Contact Title: Job title of contact at the Supplier.
 
     Contact - phone n°: Office phone number of the contact.
 
-    Contact - mobile n°: Mobile number of vendor contact person.
+    Contact - mobile n°: Mobile number of Supplier contact person.
 
-    Contact Email Address: Email address of vendor’s contact person.
+    Contact Email Address: Email address of Supplier’s contact person.
 
-    France / Europe Indirect Localisation (Y/N): Y if vendor links with EDF France.
+    France / Europe Indirect Localisation (Y/N): Y if Supplier links with EDF France.
 
     France / Europe Contact Email Address: Email of EDF contact in France.
 
-    Source: Origin or source of vendor information (e.g., NPCIL).
+    Source: Origin or source of Supplier information (e.g., NPCIL).
 
-    Other Source: Additional references who recommended vendor.
+    Other Source: Additional references who recommended Supplier.
 
-    Scope 1: Main product offered by the vendor.
+    Scope 1: Main product offered by the Supplier.
 
-    Scope 2: Secondary product supplied by the vendor.
+    Scope 2: Secondary product supplied by the Supplier.
 
-    Scope 3: Additional product or service from vendor.
+    Scope 3: Additional product or service from Supplier.
 
     Other Product and/or services family/Comments: Misc. offerings or comments.
 
-    NPCIL Reference: Whether vendor has NPCIL reference or not.
+    NPCIL Reference: Whether Supplier has NPCIL reference or not.
 
     RFI to be sent (X): X if RFI not yet sent.
 
-    RFI Sent (Date): Date RFI was sent to vendor.
+    RFI Sent (Date): Date RFI was sent to Supplier.
 
-    RFI Receipt (Date): Date RFI response received from vendor.
+    RFI Receipt (Date): Date RFI response received from Supplier.
 
     RFI Slide receipt date: Date RFI slides were received.
 
-    RCC-M training: Indicates vendor’s RCC-M training status.
+    RCC-M training: Indicates Supplier’s RCC-M training status.
 
     Scoring: RFI response score based on EDF parameters.
 
@@ -898,19 +898,19 @@ Additional Information for columns if vendor Data is there(Else Ignore This Addi
 
     Level of maturity: Maturity level based on RFI score.
 
-    Product maturity (%): Vendor's product maturity in percentage.
+    Product maturity (%): Supplier's product maturity in percentage.
 
-    Organisation maturity (%): Vendor's organizational maturity in percentage.
+    Organisation maturity (%): Supplier's organizational maturity in percentage.
 
-    Promising supplier (X): X indicates vendor is promising.
+    Promising supplier (X): X indicates Supplier is promising.
 
     NDA (Yes/_): Yes = NDA signed, blank = not signed.
 
     MoU (Yes/_): Yes = MoU signed, blank = not signed.
 
-    Approved Vendor List: X = vendor is EDF approved.
+    Approved Supplier List: X = Supplier is EDF approved.
 
-    Top 10 supplier (X): X = vendor is in EDF top 10.
+    Top 10 supplier (X): X = Supplier is in EDF top 10.
 
 For Products you can scope 1, scope 2, scope 3 and Other Product and/or services family/Comments
 
@@ -926,7 +926,7 @@ Note:- Take column names from Schema only(not from Additional Info).
         let data = [];
         let tableHtmlResponse = '';
         let aiResponseContent = '';
-
+        console.log(sql);
         try {
             data = db.exec(sql, { rowMode: "object" });
             if (data.length > 0) {
@@ -951,14 +951,14 @@ Note:- Take column names from Schema only(not from Additional Info).
 
 
         // Generate new suggested prompts based on the latest interaction for DataChat
-        const combinedContext = `User's Previous Query: ${userText}\n\n AI Response to User's Query: ${aiResponseContent.startsWith('<table') ? 'Tabular data result' : aiResponseContent}`; // Adjust context based on response type
+        const combinedContext = `User's Previous Query: ${userText}\n\n AI Response to User's Query: ${aiResponseContent.startsWith('<table') ? 'Tabular data result' : aiResponseContent}. Suggest diverse and useful questions that a user can answer from this dataset using SQLite`; // Adjust context based on response type
         await generateAndDisplaySuggestedPromptsDataChat(combinedContext,`${DB.schema().map(({ sql }) => sql).join("\n\n")}`);
 
 
     } catch (error) {
         console.error("Error fetching DataChat AI response:", error);
         removeThinkingMessage(chatLogDataChat);
-        addMessageToDOM('EDF Intelligence', `Sorry, I encountered an error querying the vendor data. ${error.message}`, 'ai', chatLogDataChat, false, true);
+        addMessageToDOM('EDF Intelligence', `Sorry, I encountered an error querying the Supplier data. ${error.message}`, 'ai', chatLogDataChat, false, true);
     }
 }
 
@@ -1038,7 +1038,7 @@ async function getAIResponse(messages, type = 'doctalk') {
     try {
         // Use the same endpoint for now, differentiate via system prompt and potentially model
         const modelToUse = (type === 'datachat') ? "gpt-4o-mini" : "gpt-4o-mini"; // Example: maybe use same model
-        const tokenSuffix = (type === 'datachat') ? "EDF-Vendors-DB" : "EDF-Vendors-Docs"; // Example: different suffix
+        const tokenSuffix = (type === 'datachat') ? "EDF-Supplier-DB" : "EDF-Supplier-Docs"; // Example: different suffix
 
         const response = await fetch("https://llmfoundry.straive.com/openai/v1/chat/completions", {
             method: "POST",
@@ -1129,7 +1129,7 @@ function renderChatLogDocTalk() {
     const activeChat = chatSessionsDocTalk.find(chat => chat.id === activeChatIdDocTalk);
 
     if (activeChat) {
-        chatHeaderTitleDocTalk.textContent = "Talk to Vendor Documents";
+        chatHeaderTitleDocTalk.textContent = "Talk to Supplier Documents";
         activeChat.messages.forEach(message => {
             const senderName = message.role === 'user' ? 'Suresh N.' : 'EDF Intelligence';
             const senderType = message.role === 'user' ? 'user' : 'ai';
@@ -1138,7 +1138,7 @@ function renderChatLogDocTalk() {
             addMessageToDOM(senderName, contentHtml, senderType, chatLogDocTalk);
         });
     } else {
-        chatHeaderTitleDocTalk.textContent = "Talk to Vendor Documents";
+        chatHeaderTitleDocTalk.textContent = "Talk to Supplier Documents";
         addMessageToDOM('EDF Intelligence', 'Select a chat or start a new one.', 'ai', chatLogDocTalk);
     }
     chatLogDocTalk.scrollTop = chatLogDocTalk.scrollHeight;
@@ -1150,7 +1150,7 @@ function renderChatLogDataChat() {
     const activeChat = chatSessionsDataChat.find(chat => chat.id === activeChatIdDataChat);
 
     if (activeChat) {
-        chatHeaderTitleDataChat.textContent = "Talk to Vendor Database";
+        chatHeaderTitleDataChat.textContent = "Talk to Supplier Database";
         activeChat.messages.forEach(message => {
             const senderName = message.role === 'user' ? 'Suresh N.' : 'EDF Intelligence';
             const senderType = message.role === 'user' ? 'user' : 'ai';
@@ -1159,7 +1159,7 @@ function renderChatLogDataChat() {
             addMessageToDOM(senderName, contentHtml, senderType, chatLogDataChat);
         });
     } else {
-        chatHeaderTitleDataChat.textContent = "Talk to Vendor Database";
+        chatHeaderTitleDataChat.textContent = "Talk to Supplier Database";
         addMessageToDOM('EDF Intelligence', 'Select a chat or start a new one.', 'ai', chatLogDataChat);
     }
     chatLogDataChat.scrollTop = chatLogDataChat.scrollHeight;
