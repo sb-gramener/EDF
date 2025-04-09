@@ -14,7 +14,7 @@
     <div class="app-container">
         <aside class="sidebar">
             <header class="sidebar-header">
-                <h1>EDF Vendor Intelligence</h1>
+                <h1>EDF Supplier Intelligence</h1>
             </header>
 
             <!-- Add the new Home/Knowledge Base button -->
@@ -23,11 +23,11 @@
             </button>
             <!-- DataChat Button -->
             <button class="my-custom-button" id="datachat-tab-button">
-                <i class="bi bi-chat-dots"></i> Talk to Vendor Database
+                <i class="bi bi-chat-dots"></i> Talk to Supplier Database
             </button>
             <!-- DocTalk Button -->
             <button class="my-custom-button" id="doctalk-tab-button">
-                <i class="bi bi-chat-square-text"></i> Talk to Vendor Documents
+                <i class="bi bi-chat-square-text"></i> Talk to Supplier Documents
             </button>
 
             <!-- Recent Conversations - Initially hidden -->
@@ -59,7 +59,7 @@
             <div class="home-page" style="display: flex; justify-content: space-between; align-items: flex-start; flex-grow: 1;"> 
 
                 <div style="width: 48%; text-align: center; padding-left: 5rem; padding-top: 3rem;">
-                    <p style="font-size: 1.1rem;">Connect to Vendor Database</p>
+                    <p style="font-size: 1.1rem;">Connect to Supplier Database</p>
                     <div id="file-attachDataChat" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 1.5rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
                         <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-database"></i></div>
                         <div style="font-size: 1rem; color: #555;">Click to upload database file</div>
@@ -76,7 +76,7 @@
 
 
                 <div style="width: 48%; text-align: center; padding-right: 5rem;padding-top: 3rem;">
-                    <p style="font-size: 1.1rem;">Upload Vendor Documents</p>
+                    <p style="font-size: 1.1rem;">Upload Supplier Documents</p>
                     <div id="file-attachDocTalk" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 2rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
                         <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-file-earmark-text"></i></div>
                         <div style="font-size: 1rem; color: #555;">Click to upload documents</div>
@@ -95,7 +95,7 @@
             </div>
 
             <footer class="input-area">
-                <p class="footer-text">Upload your vendor database and vendor documents</p>
+                <p class="footer-text">Upload your Supplier database and Supplier documents</p>
             </footer>
         </main>
 
@@ -103,7 +103,7 @@
         <!-- DocTalk Chat Area (Initially Hidden) -->
         <main class="chat-area" id="doctalk"  style="display: none;">
             <header class="chat-header">
-                <h2 id="chatHeaderTitleDocTalk">Talk to Vendor Documents</h2>
+                <h2 id="chatHeaderTitleDocTalk">Talk to Supplier Documents</h2>
                 <div class="header-icons">
                     <span>📥</span>
                     <span>⋮</span>
@@ -120,17 +120,17 @@
 
             <footer class="input-area">
                 <div class="input-wrapper">
-                    <input type="text" id="userInputDocTalk" placeholder="Ask a question about your vendor documents...">
+                    <input type="text" id="userInputDocTalk" placeholder="Ask a question about your Supplier documents...">
                     <button id="sendButtonDocTalk" class="send-btn" title="Send">▶</button>
                 </div>
-                <p class="footer-text">EDF Intelligence for vendor documents</p>
+                <p class="footer-text">EDF Intelligence for Supplier documents</p>
             </footer>
         </main>
 
         <!-- DataChat Chat Area (Initially Hidden) -->
         <main class="chat-area" id="datachat" style="display: none;">
              <header class="chat-header">
-                <h2 id="chatHeaderTitleDataChat">Talk to Vendor Database</h2>
+                <h2 id="chatHeaderTitleDataChat">Talk to Supplier Database</h2>
                 <div class="header-icons">
                     <span>📊</span>
                     <span>⋮</span>
@@ -148,10 +148,10 @@
 
             <footer class="input-area">
                 <div class="input-wrapper">
-                    <input type="text" id="userInputDataChat" placeholder="Ask a question about the vendor database...">
+                    <input type="text" id="userInputDataChat" placeholder="Ask a question about the Supplier database...">
                     <button id="sendButtonDataChat" class="send-btn" title="Send">▶</button>
                 </div>
-                <p class="footer-text">EDF Intelligence for structured vendor data</p>
+                <p class="footer-text">EDF Intelligence for structured Supplier data</p>
             </footer>
         </main>
 
