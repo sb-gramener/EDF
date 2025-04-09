@@ -185,7 +185,7 @@ const DB = { // Keep DB object globally accessible
         stmt.finalize();
         const schema = DB.schema();
         // console.log(schema);
-        generateAndDisplaySuggestedPromptsDataChat("Suggest diverse and useful questions that a user can answer from this dataset using SQLite",schema);
+        generateAndDisplaySuggestedPromptsDataChat("Suggest diverse and useful questions that a user can answer from this dataset using SQLite. Note: Do not assume any kind of filtering on column data with a specific name just write questions based on retreival of top results which is not vague and keep it backed with the context.",schema);
     },
 };
 
@@ -564,7 +564,7 @@ async function getSuggestedPrompts(context, type = 'doctalk',schema=[]) {
     ];
      const defaultPromptsDataChat = [
         "How many Supplier are in the database?",
-        "Show Supplier located in 'Paris'.",
+        "Show Supplier located in 'Mumbai'.",
         "What product categories exist?"
     ];
 
@@ -575,14 +575,14 @@ async function getSuggestedPrompts(context, type = 'doctalk',schema=[]) {
 
     let promptGenerationPrompt;
     if (type === 'datachat') {
-        promptGenerationPrompt = `Given the following summary or description of a Supplier database: "${context}" with the schema "${JSON.stringify(schema)}", generate three distinct and useful question prompts a user might ask about the structured data. Prompts should be actionable, less than 80 characters, and suitable for querying a database based on general column names. Do not include numbering or bullet points, just the three prompts on new lines.`;
+        promptGenerationPrompt = `Given the following Supplier database context and task: "${context}" along with the schema "${JSON.stringify(schema)}", generate three distinct and useful question prompts a user might ask to query the structured data. Prompts should be actionable, less than 80 characters, and suitable for querying a database based on general column names. Do not include numbering or bullet points, just the three prompts on new lines.`;
     } else { 
         promptGenerationPrompt = `Given the following summary about EDF Supplier from documents: "${context}", generate three distinct and useful question prompts that a user might ask. The prompts should be specific and actionable, encouraging the user to explore the document content. Do not include any introductory or concluding remarks, just the three prompts, each on a new line. Do not include any numbering or bullet points. Don't write any mathematical prompt and should be something that can be answered appropriately from context. The prompts should be less than 80 characters each.`;
     }
 
 
     try {
-        console.log(promptGenerationPrompt);
+        // console.log(promptGenerationPrompt);
         const response = await fetch("https://llmfoundry.straive.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
