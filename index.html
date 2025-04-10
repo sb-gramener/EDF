@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 </head>
+
 <body>
     <div class="app-container">
         <aside class="sidebar">
@@ -34,7 +36,8 @@
             <nav class="recent-conversations" style="display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <h2 style="margin-top: 1rem;">RECENT CONVERSATIONS</h2>
-                    <button class="new-chat-btn" id="newChatBtn" style="display: flex; align-items: center; position: relative;">
+                    <button class="new-chat-btn" id="newChatBtn"
+                        style="display: flex; align-items: center; position: relative;">
                         <i class="bi bi-plus-circle-fill" style="margin-right: 0.5rem;"></i>NewChat
                     </button>
                 </div>
@@ -54,20 +57,32 @@
         <main class="chat-area" id="home" style="display: flex; flex-direction: column;">
             <header class="chat-header">
                 <h2>Knowledge Base Set-Up</h2>
+                <div class="app-description">
+                    <p><i class="bi bi-info-circle-fill me-2"></i> Need a starting point?</p>Download our <a
+                        href="https://drive.google.com/drive/folders/199pa7rpeA-NcArkI0KasRWpYUMRLaLwy?usp=drive_link"
+                        target="_blank" class="text-primary text-decoration-underline">Sample Data <i
+                            class="bi bi-download"></i></a>
+                </div>
             </header>
 
-            <div class="home-page" style="display: flex; justify-content: space-between; align-items: flex-start; flex-grow: 1;"> 
+            <div class="home-page"
+                style="display: flex; justify-content: space-between; align-items: flex-start; flex-grow: 1;">
 
                 <div style="width: 48%; text-align: center; padding-left: 5rem; padding-top: 3rem;">
                     <p style="font-size: 1.1rem;">Connect to Supplier Database</p>
-                    <div id="file-attachDataChat" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 1.5rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
-                        <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-database"></i></div>
+                    <div id="file-attachDataChat"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 1.5rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
+                        <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-database"></i>
+                        </div>
                         <div style="font-size: 1rem; color: #555;">Click to upload database file</div>
-                        <input type="file" id="fileInputDataChat" style="display: none;" accept=".csv,.sqlite3,.db,.sqlite,.s3db,.sl3" multiple/>
+                        <input type="file" id="fileInputDataChat" style="display: none;"
+                            accept=".csv,.sqlite3,.db,.sqlite,.s3db,.sl3" multiple />
                     </div>
-                    <p style="color:#5f5f5f; margin-top: 1rem;">Supported Formats: .csv, .sqlite3, .db, .sqlite, .s3db</p>
+                    <p style="color:#5f5f5f; margin-top: 1rem;">Supported Formats: .csv, .sqlite3, .db, .sqlite, .s3db
+                    </p>
                     <!-- Add uploaded database files name display here-->
-                    <div id="dataFileList" style="display: none; margin-top: 0.5rem; color: #333; font-size: 0.8rem; text-align: left; padding: 1rem; border: 1px solid; border-color: #bdbdbd; border-radius: 5px;">
+                    <div id="dataFileList"
+                        style="display: none; margin-top: 0.5rem; color: #333; font-size: 0.8rem; text-align: left; padding: 1rem; border: 1px solid; border-color: #bdbdbd; border-radius: 5px;">
                         <div style="margin-bottom: 0.5rem;">Database Files:</div>
                         <div id="processing-div-datachat" style="display: none;">Processing...</div>
                     </div>
@@ -77,14 +92,19 @@
 
                 <div style="width: 48%; text-align: center; padding-right: 5rem;padding-top: 3rem;">
                     <p style="font-size: 1.1rem;">Upload Supplier Documents</p>
-                    <div id="file-attachDocTalk" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 2rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
-                        <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i class="bi bi-file-earmark-text"></i></div>
+                    <div id="file-attachDocTalk"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1.5px dashed #ccc; border-radius: 8px; padding: 2rem; height: 8rem; margin-top: 2rem; cursor: pointer; background-color: #fdfdfd;">
+                        <div style="font-size: 3rem; color: #555; margin-bottom: 1rem;"><i
+                                class="bi bi-file-earmark-text"></i></div>
                         <div style="font-size: 1rem; color: #555;">Click to upload documents</div>
-                        <input type="file" id="fileInputDocTalk" style="display: none;" accept=".pdf,.doc,.docx,.txt, .xls, .xlsx" multiple/>
+                        <input type="file" id="fileInputDocTalk" style="display: none;"
+                            accept=".pdf,.doc,.docx,.txt, .xls, .xlsx" multiple />
                     </div>
-                    <p style="color:#5f5f5f; margin-top: 1rem;">Supported Formats: .pdf, .doc, .docx, .txt, .xls, .xlsx</p>
+                    <p style="color:#5f5f5f; margin-top: 1rem;">Supported Formats: .pdf, .doc, .docx, .txt, .xls, .xlsx
+                    </p>
                     <!-- Add uploaded files name display here-->
-                    <div id="docFileList" style="display: none; margin-top: 0.5rem; color: #333; font-size: 0.8rem; text-align: left; padding: 1rem; border: 1px solid; border-color: #bdbdbd; border-radius: 5px;">
+                    <div id="docFileList"
+                        style="display: none; margin-top: 0.5rem; color: #333; font-size: 0.8rem; text-align: left; padding: 1rem; border: 1px solid; border-color: #bdbdbd; border-radius: 5px;">
                         <div style="margin-bottom: 0.25rem;">Documents Uploaded:</div>
                         <div id="processing-div-doctalk" style="display: none;">Processing...</div>
                     </div>
@@ -101,7 +121,7 @@
 
 
         <!-- DocTalk Chat Area (Initially Hidden) -->
-        <main class="chat-area" id="doctalk"  style="display: none;">
+        <main class="chat-area" id="doctalk" style="display: none;">
             <header class="chat-header">
                 <h2 id="chatHeaderTitleDocTalk">Talk to Supplier Documents</h2>
                 <div class="header-icons">
@@ -115,12 +135,13 @@
             </div>
 
             <div class="suggested-prompts" id="suggestedPromptsDocTalk">
-                 <!-- DocTalk suggested prompts go here -->
+                <!-- DocTalk suggested prompts go here -->
             </div>
 
             <footer class="input-area">
                 <div class="input-wrapper">
-                    <input type="text" id="userInputDocTalk" placeholder="Ask a question about your Supplier documents...">
+                    <input type="text" id="userInputDocTalk"
+                        placeholder="Ask a question about your Supplier documents...">
                     <button id="sendButtonDocTalk" class="send-btn" title="Send">▶</button>
                 </div>
                 <p class="footer-text">EDF Intelligence for Supplier documents</p>
@@ -129,7 +150,7 @@
 
         <!-- DataChat Chat Area (Initially Hidden) -->
         <main class="chat-area" id="datachat" style="display: none;">
-             <header class="chat-header">
+            <header class="chat-header">
                 <h2 id="chatHeaderTitleDataChat">Talk to Supplier Database</h2>
                 <div class="header-icons">
                     <span>📊</span>
@@ -143,12 +164,13 @@
             <div id="tables-container" class="table-responsive"></div>
             <div id="result" class="table-responsive container mx-auto"></div>
             <div class="suggested-prompts" id="suggestedPromptsDataChat">
-                 <!-- DataChat suggested prompts go here -->
+                <!-- DataChat suggested prompts go here -->
             </div>
 
             <footer class="input-area">
                 <div class="input-wrapper">
-                    <input type="text" id="userInputDataChat" placeholder="Ask a question about the Supplier database...">
+                    <input type="text" id="userInputDataChat"
+                        placeholder="Ask a question about the Supplier database...">
                     <button id="sendButtonDataChat" class="send-btn" title="Send">▶</button>
                 </div>
                 <p class="footer-text">EDF Intelligence for structured Supplier data</p>
@@ -163,6 +185,7 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
     </script>
-    <script src="script.js" type="module"></script>
+    <script src="scriptt.js" type="module"></script>
 </body>
+
 </html>
